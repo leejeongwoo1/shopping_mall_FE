@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Container, Form, Button, Alert } from "react-bootstrap";
 import { Link, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
@@ -27,6 +27,12 @@ const Login = () => {
   if (user) {
     navigate("/");
   }
+  useEffect(() => {
+    dispatch(userActions.clearError());
+    if (user) {
+      navigate("/");
+    }
+  }, []);
   return (
     <>
       <Container className="login-area">
