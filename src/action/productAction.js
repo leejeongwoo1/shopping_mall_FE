@@ -3,7 +3,15 @@ import * as types from "../constants/product.constants";
 import { toast } from "react-toastify";
 import { commonUiActions } from "./commonUiAction";
 
-const getProductList = (query) => async (dispatch) => {};
+const getProductList = (query) => async (dispatch) => {
+  try {
+    dispatch({ type: types.PRODUCT_GET_REQUEST });
+    const response = await api.get("/product", { params: { ...query } });
+    dispatch({ type: types.PRODUCT_GET_SUCCESS, payload: response.data });
+  } catch (error) {
+    dispatch({ type: types.PRODUCT_GET_FAIL, payload: error.message });
+  }
+};
 const getProductDetail = (id) => async (dispatch) => {};
 
 const createProduct = (formData) => async (dispatch) => {
@@ -13,7 +21,6 @@ const createProduct = (formData) => async (dispatch) => {
     dispatch({ type: types.PRODUCT_CREATE_SUCCESS });
     dispatch(commonUiActions.showToastMessage("상품 생성 완료", "success"));
   } catch (error) {
-    console.log(1, error);
     dispatch({ type: types.PRODUCT_CREATE_FAIL, payload: error.message });
     dispatch(commonUiActions.showToastMessage("상품 등록 실패", "error"));
   }
