@@ -32,12 +32,10 @@ const AdminProduct = () => {
     "Status",
     "",
   ];
-  console.log(2);
   //상품리스트 가져오기 (url쿼리 맞춰서)
   useEffect(() => {
     dispatch(productActions.getProductList({ ...searchQuery }));
-    console.log(1);
-  }, [query, showDialog]);
+  }, [query]);
   useEffect(() => {
     if (searchQuery.name === "") {
       delete searchQuery.name;
@@ -54,6 +52,9 @@ const AdminProduct = () => {
   const openEditForm = (product) => {
     //edit모드로 설정하고
     // 아이템 수정다이얼로그 열어주기
+    setMode("edit");
+    dispatch({ type: types.SET_SELECTED_PRODUCT, payload: product });
+    setShowDialog(true);
   };
 
   const handleClickNewItem = () => {
