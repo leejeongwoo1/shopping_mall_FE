@@ -32,11 +32,12 @@ const AdminProduct = () => {
     "Status",
     "",
   ];
-
+  console.log(2);
   //상품리스트 가져오기 (url쿼리 맞춰서)
   useEffect(() => {
     dispatch(productActions.getProductList({ ...searchQuery }));
-  }, [query]);
+    console.log(1);
+  }, [query, showDialog]);
   useEffect(() => {
     if (searchQuery.name === "") {
       delete searchQuery.name;
