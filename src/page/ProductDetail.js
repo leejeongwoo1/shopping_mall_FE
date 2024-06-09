@@ -36,6 +36,7 @@ const ProductDetail = () => {
   };
   const selectSize = (value) => {
     // 사이즈 추가하기
+    console.log(1);
     if (sizeError) setSizeError(false);
     setSize(value);
   };
@@ -93,7 +94,7 @@ const ProductDetail = () => {
                     </Dropdown.Item>
                   ) : (
                     <Dropdown.Item eventKey={item} disabled={true}>
-                      {item.toUpperCase()}
+                      {item.toUpperCase()} (품절)
                     </Dropdown.Item>
                   )
                 )}

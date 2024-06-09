@@ -18,12 +18,15 @@ function cartReducer(state = initialState, action) {
   switch (type) {
     case types.ADD_TO_CART_REQUEST:
     case types.GET_CART_LIST_REQUEST:
+    case types.DELETE_CART_ITEM_REQUEST:
+    case types.UPDATE_CART_ITEM_REQUEST:
+    case types.GET_CART_QTY_REQUEST:
       return { ...state, loading: true };
+
     case types.ADD_TO_CART_SUCCESS:
-      return { ...state, cartItemQty: payload, loading: false }; //TODO
-    case types.GET_CART_LIST_SUCCESS:
-      //console.log("aaaa", payload[0].productId.price);
-      //console.log("aaaa", payload[0].item.qty);
+    case types.DELETE_CART_ITEM_SUCCESS:
+      return { ...state, cartItemQty: payload, loading: false };
+    case types.UPDATE_CART_ITEM_SUCCESS:
       return {
         ...state,
         loading: false,
@@ -33,7 +36,22 @@ function cartReducer(state = initialState, action) {
           0
         ),
       };
+    case types.GET_CART_LIST_SUCCESS:
+      return {
+        ...state,
+        loading: false,
+        cartList: payload,
+        totalPrice: payload.reduce(
+          (total, item) => (total += item.productId.price * item.qty),
+          0
+        ),
+      };
+    case types.GET_CART_QTY_SUCCESS:
+      return { ...state, cartItemQty: payload };
     case types.ADD_TO_CART_FAIL:
+    case types.DELETE_CART_ITEM_FAIL:
+    case types.UPDATE_CART_ITEM_FAIL:
+    case types.GET_CART_QTY_FAIL:
       return { ...state, loading: false, error: payload };
     default:
       return state;

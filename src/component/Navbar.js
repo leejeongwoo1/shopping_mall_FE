@@ -14,7 +14,7 @@ import { userActions } from "../action/userAction";
 
 const Navbar = ({ user }) => {
   const dispatch = useDispatch();
-  const { cartItemCount } = useSelector((state) => state.cart);
+  const { cartItemQty } = useSelector((state) => state.cart);
   const isMobile = window.navigator.userAgent.indexOf("Mobile") !== -1;
   const [showSearchBox, setShowSearchBox] = useState(false);
   const menuList = [
@@ -29,6 +29,7 @@ const Navbar = ({ user }) => {
   ];
   let [width, setWidth] = useState(0);
   let navigate = useNavigate();
+
   const onCheckEnter = (event) => {
     if (event.key === "Enter") {
       if (event.target.value === "") {
@@ -102,7 +103,7 @@ const Navbar = ({ user }) => {
               <FontAwesomeIcon icon={faShoppingBag} />
               {!isMobile && (
                 <span style={{ cursor: "pointer" }}>{`쇼핑백(${
-                  cartItemCount || 0
+                  cartItemQty || 0
                 })`}</span>
               )}
             </div>

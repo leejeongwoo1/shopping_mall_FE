@@ -7,30 +7,30 @@ import { currencyFormat } from "../utils/number";
 const OrderReceipt = ({ cartList, totalPrice }) => {
   const location = useLocation();
   const navigate = useNavigate();
-  console.log(totalPrice);
   return (
     <div className="receipt-container">
       <h3 className="receipt-title">주문 내역</h3>
       <ul className="receipt-list">
-        {cartList.map((item) => (
-          <li>
-            <div className="display-flex space-between">
-              <div>{item.productId.name}</div>
+        {cartList.length > 0 &&
+          cartList.map((item) => (
+            <li>
+              <div className="display-flex space-between">
+                <div>{item.productId.name}</div>
 
-              <div>₩ {currencyFormat(item.productId.price * item.qty)}</div>
-            </div>
-          </li>
-        ))}
+                <div>₩ {currencyFormat(item.productId.price * item.qty)}</div>
+              </div>
+            </li>
+          ))}
       </ul>
       <div className="display-flex space-between receipt-title">
         <div>
           <strong>Total:</strong>
         </div>
         <div>
-          <strong>₩ {totalPrice}</strong>
+          <strong>₩ {currencyFormat(totalPrice)}</strong>
         </div>
       </div>
-      {location.pathname.includes("/cart") && (
+      {location.pathname.includes("/cart") && cartList.length > 0 && (
         <Button
           variant="dark"
           className="payment-button"
