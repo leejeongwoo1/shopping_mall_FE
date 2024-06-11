@@ -3,18 +3,33 @@ import * as types from "../constants/order.constants";
 import { cartActions } from "./cartAction";
 import { commonUiActions } from "./commonUiAction";
 
-const createOrder = (payload) => async (dispatch) => {
+const createOrder = (payload, navigate) => async (dispatch) => {
   try {
     dispatch({ type: types.CREATE_ORDER_REQUEST });
     const response = await api.post("/order", payload);
-    //dispatch({type:types.CREATE_ORDER_SUCCESS,payload:})
+    console.log(response.data.orderNum, 1);
+    dispatch({
+      type: types.CREATE_ORDER_SUCCESS,
+      payload: response.data.orderNum,
+    });
+    dispatch(cartActions.getCartQty());
+    navigate("/payment/success");
   } catch (error) {
     dispatch({ type: types.CREATE_ORDER_FAIL, payload: error.message });
     dispatch(commonUiActions.showToastMessage(error.message, "error"));
   }
 };
 
-const getOrder = () => async (dispatch) => {};
+const getOrder = () => async (dispatch) => {
+  try {
+    dispatch({ type: types.GET_ORDER_REQUEST });
+    const response = await api.get("/order/me");
+    dispatch({ type: types.GET_ORDER_SUCCESS, payload: response.data });
+  } catch (error) {
+    dispatch({ type: types.GET_ORDER_FAIL, error: error.message });
+    dispatch(commonUiActions.showToastMessage(error.message, "error"));
+  }
+};
 const getOrderList = (query) => async (dispatch) => {};
 
 const updateOrder = (id, status) => async (dispatch) => {};
