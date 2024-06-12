@@ -30,9 +30,31 @@ const getOrder = () => async (dispatch) => {
     dispatch(commonUiActions.showToastMessage(error.message, "error"));
   }
 };
-const getOrderList = (query) => async (dispatch) => {};
+const getOrderList = (query) => async (dispatch) => {
+  try {
+    dispatch({ type: types.GET_ORDER_LIST_REQUEST });
+    const response = await api.get("./order", { params: { ...query } });
+    dispatch({ type: types.GET_ORDER_LIST_SUCCESS, payload: response.data });
+  } catch (error) {
+    dispatch({ type: types.GET_ORDER_LIST_FAIL, error: error.message });
+    dispatch(commonUiActions.showToastMessage(error.message, "error"));
+  }
+};
 
-const updateOrder = (id, status) => async (dispatch) => {};
+const updateOrder = (id, status) => async (dispatch) => {
+  try {
+    dispatch({ type: types.UPDATE_ORDER_REQUEST });
+    const response = await api.put(`/order/${id}`, { status });
+    dispatch({ type: types.UPDATE_ORDER_SUCCESS, payload: response.data });
+    dispatch(
+      commonUiActions.showToastMessage("오더 업데이트 완료!", "success")
+    );
+    dispatch(getOrderList());
+  } catch (error) {
+    dispatch({ type: types.UPDATE_ORDER_FAIL, error: error.message });
+    dispatch(commonUiActions.showToastMessage(error, "error"));
+  }
+};
 
 export const orderActions = {
   createOrder,
