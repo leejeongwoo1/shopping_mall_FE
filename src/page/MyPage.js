@@ -4,12 +4,16 @@ import { Container } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
 import { orderActions } from "../action/orderAction";
 import OrderStatusCard from "../component/OrderStatusCard";
+import { useNavigate } from "react-router-dom";
+
 import "../style/orderStatus.style.css";
 
 const MyPage = () => {
   const dispatch = useDispatch();
+  const { user } = useSelector((state) => state.user);
   const { orderList } = useSelector((state) => state.order);
-
+  const navigate = useNavigate();
+  if (!user) navigate("/login");
   //오더리스트 들고오기
   useEffect(() => {
     dispatch(orderActions.getOrder());
@@ -22,6 +26,7 @@ const MyPage = () => {
       </Container>
     );
   }
+  console.log(orderList);
   return (
     <Container className="status-card-container">
       {orderList.map((item) => (

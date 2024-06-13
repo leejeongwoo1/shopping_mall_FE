@@ -29,7 +29,7 @@ const OrderStatusCard = ({ orderItem }) => {
         </Col>
         <Col md={2} className="vertical-middle">
           <div className="text-align-center text-12">주문상태</div>
-          <Badge bg="warning">preparing</Badge>
+          <Badge bg={badgeBg[orderItem.status]}>{orderItem.status}</Badge>
         </Col>
       </Row>
     </div>
