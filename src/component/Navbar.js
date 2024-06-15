@@ -125,7 +125,11 @@ const Navbar = ({ user }) => {
 
       <div className="nav-logo">
         <Link to="/">
-          <img width={100} src="/image/hm-logo.png" alt="hm-logo.png" />
+          <img
+            width={200}
+            src="/image/Kiwoom_heroes.png"
+            alt="Kiwoom_heroes.png"
+          />
         </Link>
       </div>
       <div className="nav-menu-area">

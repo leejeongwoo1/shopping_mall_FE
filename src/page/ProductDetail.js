@@ -7,8 +7,10 @@ import { ColorRing } from "react-loader-spinner";
 import { cartActions } from "../action/cartAction";
 import { commonUiActions } from "../action/commonUiAction";
 import { currencyFormat } from "../utils/number";
+import ReviewWriteBox from "../component/ReviewWriteBox";
 import "../style/productDetail.style.css";
-
+import { reviewActions } from "../action/reviewAction";
+import ReviewBox from "../component/ReviewBox";
 const ProductDetail = () => {
   const dispatch = useDispatch();
   const selectedProduct = useSelector((state) => state.product.selectedProduct);
@@ -18,10 +20,12 @@ const ProductDetail = () => {
   const { id } = useParams();
   const [sizeError, setSizeError] = useState(false);
   const { user } = useSelector((state) => state.user);
+  const reviewList = useSelector((state) => state.review.reviewList);
   const navigate = useNavigate();
-
+  console.log(reviewList, 1);
   useEffect(() => {
     dispatch(productActions.getProductDetail(id));
+    dispatch(reviewActions.getReviewList(id));
   }, [id]);
   const addItemToCart = () => {
     //사이즈를 아직 선택안했다면 에러
@@ -108,6 +112,20 @@ const ProductDetail = () => {
           </Button>
         </Col>
       </Row>
+      <Row>
+        <ReviewWriteBox productId={id} />
+      </Row>
+      <Container>
+        {reviewList.length > 0 ? (
+          reviewList.map((item) => (
+            <Row>
+              <ReviewBox name={item.name} review={item.review} />
+            </Row>
+          ))
+        ) : (
+          <div>댓글이 없습니다</div>
+        )}
+      </Container>
     </Container>
   );
 };

@@ -12,6 +12,7 @@ const ProductCard = ({ item }) => {
       <img src={item?.image} alt={item?.image} />
       <div>{item?.name}</div>
       <div>₩ {currencyFormat(item?.price)}</div>
+      <div>{item?.sold} sold</div>
     </div>
   );
 };

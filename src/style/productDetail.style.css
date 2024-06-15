@@ -1,13 +1,29 @@
-
-.size-drop-down{
-    width:100%;
+.size-drop-down {
+  width: 100%;
 }
 
-.warning-message{
-    color:red;
+.warning-message {
+  color: red;
 }
 
-.product-info{
-    font-size: 20px;
-    margin-bottom: 10px;
+.product-info {
+  font-size: 20px;
+  margin-bottom: 10px;
+}
+
+.review-box {
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  padding: 12px;
+  margin-bottom: 12px;
+  background-color: #f9f9f9;
+}
+
+.review-author {
+  font-weight: bold;
+  margin-bottom: 8px;
+}
+
+.review-content {
+  line-height: 1.6;
 }
